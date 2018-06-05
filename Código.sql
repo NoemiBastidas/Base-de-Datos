@@ -1,7 +1,5 @@
 //CREAR BASE DE DATOS
 -- Database: "Estudiantes"
-
-
 -- DROP DATABASE "Estudiantes";
 
 
@@ -22,15 +20,10 @@ WITH OWNER = "Estudiante"
 
 //CREAR TABLA ESTUDIANTE
 - Table: datos
-
-
 -- DROP TABLE datos;
-
-
 CREATE TABLE datos
 
 (
-  
 	idestudiante integer NOT NULL DEFAULT nextval('estudiante_sec'::regclass),
   
 	nombre character varying(50),
@@ -42,13 +35,9 @@ CREATE TABLE datos
 	fecha_nacimiento date,
   
 	CONSTRAINT datos_pkey PRIMARY KEY (idestudiante)
-
 )
-
 WITH (
-  
 	OIDS=FALSE
-
 );
 
 ALTER TABLE datos
