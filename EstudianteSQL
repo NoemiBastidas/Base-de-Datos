@@ -1,0 +1,208 @@
+-- Database: "Estudiantes"
+-- DROP DATABASE "Estudiantes";
+
+CREATE DATABASE "Estudiantes"
+  WITH OWNER = "Estudiante"
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'Spanish_Ecuador.1252'
+       LC_CTYPE = 'Spanish_Ecuador.1252'
+       CONNECTION LIMIT = -1;
+
+
+
+-- Table: asignaturas
+-- DROP TABLE asignaturas;
+
+CREATE TABLE asignaturas
+(
+  id serial NOT NULL,
+  programacion text NOT NULL,
+  matematica text NOT NULL,
+  lenguaje text NOT NULL,
+  ingles text NOT NULL,
+  algabra text NOT NULL,
+  CONSTRAINT asignaturas_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE asignaturas
+  OWNER TO postgres;
+
+
+
+
+-- Table: docentes
+-- DROP TABLE docentes;
+
+CREATE TABLE docentes
+(
+  id serial NOT NULL,
+  nombre1 text NOT NULL,
+  nombre2 text NOT NULL,
+  apellido1 text NOT NULL,
+  apellido2 text NOT NULL,
+  fecha_nacimiento date,
+  asignatura character varying(20),
+  CONSTRAINT docentes_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE docentes
+  OWNER TO postgres;
+
+
+
+-- Table: estudiante
+-- DROP TABLE estudiante;
+
+CREATE TABLE estudiante
+(
+  id serial NOT NULL,
+  nombre1 text NOT NULL,
+  nombre2 text NOT NULL,
+  apellido1 text NOT NULL,
+  apellido2 text NOT NULL,
+  fecha_nacimiento date,
+  cedula character varying(15),
+  genero character varying(15),
+  nota_bd numeric,
+  nota_programacion numeric,
+  CONSTRAINT estudiante_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE estudiante
+  OWNER TO postgres;
+
+
+-- Table: notas
+-- DROP TABLE notas;
+
+CREATE TABLE notas
+(
+  id serial NOT NULL,
+  notaprogramacion integer,
+  notamatematica integer,
+  notalenguaje integer,
+  notaingles integer,
+  notaalgabra integer,
+  CONSTRAINT notas_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE notas
+  OWNER TO postgres;
+
+
+-- Table: estudiantepordocente
+-- DROP TABLE estudiantepordocente;
+
+CREATE TABLE estudiantepordocente
+(
+  id serial NOT NULL,
+  idestudiantes integer,
+  iddocentes integer,
+  CONSTRAINT estudiantepordocente_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE estudiantepordocente
+  OWNER TO postgres;
+
+--Agregar FOREIGN KEY
+alter table EstudianteporDocentes add FOREIGN KEY (idEstudiantes) REFERENCES estudiante (id);
+alter table EstudianteporDocentes add FOREIGN KEY (iddocentes) REFERENCES docentes (asignatura) 
+
+--Ingreso de datos
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Henry','Jose','Andrade','Montenegro','1995/03/15','1745187985','masculino',9.3,8 );
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Randy','Fabian','Cabrera','Ortiz','1993/04/21','1745178942','masculino',9.9,8.7 );
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Alex','Dario','Calispa','Castro','1993/09/21','1724216197','masculino',9,8.9 );
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Mishell','Antonia','Taco','Hernandez','1997/08/21','1723647887','femenino',10,8.6 );
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Noemi','Dana','Bastidas','Lopez','1991/10/11','1717217903','femenino',9.8,7 );
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Aracely','Diana','Sisa','Velez','1993/03/22','1745174785','femenino',9.2 ,7.1 );
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('David','Ricardo','Quinaluiza','Chiluiza','1997/11/20','1724786197','masculino',9.1,9.4 );
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Rodrigo','Alexander','Diaz','Perez','1995/04/15','1778967887','masculino',10,8.9 );
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Sebastian','Alejandro','Guaman','Teran','1996/08/16','1747894568','masculino',9.8,7.9  );
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Alanys','Yulli','Rojas','Gaibor','1996/07/20','1727894562','femenino',9.2 ,6);
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Evelyn','Katerine','Faz','Armijos','1999/06/14','1723678943','femenino',9.4,7.5 );
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Sofia','Lorena','Andrango','Perez','1998/07/26','17454874568','femenino',8 ,8.8 );
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Daniel','Efrain','Taipe','Rodriguez','1992/11/10','1727894562','masculino',7,7.6 );
+
+INSERT INTO estudiante(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,cedula,genero,nota_Bd,nota_Programacion)
+VALUES ('Tania','Elizabeth','Lopez','Moposita','1997/02/28','1125367894','femenino',9.1,9.5 );
+
+
+--ingresar datos Docentes
+INSERT INTO docentes(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,asignatura)
+VALUES ('Henry','Jose','Andrade','Montenegro','1995/04/20','matematica');
+INSERT INTO docentes(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,asignatura)
+VALUES ('Noemi','Aracely','Bastidas','Sisa','1995/08/25','algebra');
+INSERT INTO docentes(nombre1,nombre2,apellido1,apellido2,fecha_Nacimiento,asignatura)
+VALUES ('Jose','Andres','Arteaga','Montaluisa','1995/06/18','ingles');
+
+--ingresar datos Notas
+INSERT INTO notas(notaprogramacion,notamatematica,notalenguaje,notaingles,notaalgabra)
+VALUES (9,6,8,7,9.1);
+INSERT INTO notas(notaprogramacion,notamatematica,notalenguaje,notaingles,notaalgabra)
+VALUES (8.1,9,7,5,7.5);
+INSERT INTO notas(notaprogramacion,notamatematica,notalenguaje,notaingles,notaalgabra)
+VALUES (7,6,8,9,8.2);
+
+--SELECT  max(nota_Bd) FROM estudiante 
+--SELECT  min(nota_Bd) FROM estudiante 
+SELECT * FROM estudiante
+WHERE nota_Bd = (SELECT MAX(nota_Bd) FROM estudiante)
+ORDER BY nombre1
+
+SELECT * FROM estudiante
+WHERE nota_Bd = (SELECT MIN(nota_Bd) FROM estudiante)
+ORDER BY nombre1
+
+SELECT * FROM estudiante
+WHERE nota_Programacion = (SELECT MAX(nota_Programacion) FROM estudiante)
+ORDER BY nombre1
+
+SELECT * FROM estudiante
+WHERE nota_Programacion = (SELECT MIN(nota_Programacion) FROM estudiante)
+ORDER BY nombre1
+
+
+SELECT p.nombre, a.nombre 
+FROM persona p 
+JOIN estudiantePorDocente epa
+ON p.id=epa.id
+JOIN docente 
+ON epa.id=a.id 
+JOIN estudiante 
+on a.id=e.id;
